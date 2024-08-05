@@ -1,3 +1,4 @@
+using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -25,20 +26,46 @@ public class AuthController : ControllerBase
         var user = await _context.User
             .SingleOrDefaultAsync(u => u.username == request.Username || u.email == request.Email);
 
-        if (user == null || !VerifyPassword(request.Password, user.passwordhash))
+        if (user == null || !VerifyPassword(HashPassword(request.Password), user.passwordhash))
         {
             return Unauthorized();
+
         }
 
         var token = GenerateJwtToken(user);
 
         return Ok(new { Token = token });
     }
-
-    private bool VerifyPassword(string? password, string? passwordHash)
+    [HttpPost("register4admin")]
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        // Thêm logic kiểm tra mật khẩu
-        return password == passwordHash; // Thay thế bằng kiểm tra hash thực tế
+        if (await _context.User.AnyAsync(u => u.username == request.Username || u.email == request.Email))
+        {
+            return BadRequest("Username or Email already exists.");
+        }
+
+        var user = new User
+        {
+            username = request.Username,
+            email = request.Email,
+            passwordhash = HashPassword(request.Password)
+        };
+
+        _context.User.Add(user);
+        await _context.SaveChangesAsync();
+
+        return Ok("User registered successfully.");
+    }
+   private bool VerifyPassword(string? password, string? passwordHash)
+    {
+        // Use BCrypt to verify the password
+        return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+    }
+
+    private string HashPassword(string password)
+    {
+        // Use BCrypt to hash the password
+        return BCrypt.Net.BCrypt.HashPassword(password);
     }
 
 private string GenerateJwtToken(User user)
@@ -78,3 +105,11 @@ public class LoginRequest
     public string? Password { get; set; }
     public string? Email { get; set; }
 }
+
+public class RegisterRequest
+{
+    public string? Username { get; set; }
+    public required string Password { get; set; }
+    public string? Email { get; set; }
+}
+

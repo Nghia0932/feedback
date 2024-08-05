@@ -112,3 +112,5 @@ D:\Luan_van_Cty_DH\feedback\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.d
 D:\Luan_van_Cty_DH\feedback\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Luan_van_Cty_DH\feedback\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\Luan_van_Cty_DH\feedback\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Luan_van_Cty_DH\feedback\obj\Debug\net8.0\feedback.sourcelink.json
+D:\Luan_van_Cty_DH\feedback\bin\Debug\net8.0\BCrypt.Net-Next.dll

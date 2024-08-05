@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZVGhTVIKLeXJqTgk3JHVGCBAqzbRzFQxoKem2/XCSA1pdVe+z3a4TV6oCMH3HcEFwynN/lHPBIc5CVvAGWmCWA==",
+  "dgSpecHash": "WvQePV4y+/8QVLIHbDA8Dk86NsmfwlTwRD7Txay3SUxb8CiiXzZlZ4zZ7dwyt2UgLsdylTID0CmfsI7sjQ2lDA==",
   "success": true,
   "projectFilePath": "D:\\Luan_van_Cty_DH\\feedback\\feedback.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\hihi\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\hihi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\hihi\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.7\\microsoft.aspnetcore.authentication.jwtbearer.8.0.7.nupkg.sha512",
     "C:\\Users\\hihi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.3\\microsoft.aspnetcore.openapi.8.0.3.nupkg.sha512",
