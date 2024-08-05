@@ -15,9 +15,9 @@ public class AppDbContext : DbContext
 public class User
 {
     public int id { get; set; }
-    public string? username { get; set; }
-    public string? passwordhash { get; set; }
-    public string? email { get; set; }
+    public required string username { get; set; }
+    public required string passwordhash { get; set; }
+    public required string email { get; set; }
 
 }
 
