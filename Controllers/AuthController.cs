@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login4admin")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] Login4Admin request)
     {
         var user = await _context.User
             .SingleOrDefaultAsync(u => u.email == request.Email);
@@ -44,7 +44,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register4admin")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] Register4Admin request)
     {
         if (await _context.User.AnyAsync(u => u.email == request.Email))
         {
@@ -60,6 +60,33 @@ public class AuthController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok("User registered successfully.");
     }
+     [HttpPost("update4admin")]
+    public async Task<IActionResult> Update([FromBody] Update4Admin request)
+    {
+    // Check if the user with the provided email exists
+        var user = await _context.User.SingleOrDefaultAsync(u => u.email == request.Email);
+        if (user == null)
+        {
+            return BadRequest("Email does not exist.");
+        }
+        // Update user details
+        if (!string.IsNullOrEmpty(request.Username))
+        {
+            user.username = request.Username;
+        }
+
+        if (!string.IsNullOrEmpty(request.Password))
+        {
+            user.passwordhash = HashPassword(request.Password);
+        }
+
+        // Save changes to the database
+        _context.User.Update(user);
+        await _context.SaveChangesAsync();
+
+        return Ok("Update successful.");
+    }
+
 
     private string GenerateJwtToken(User user)
     {
@@ -86,16 +113,21 @@ public class AuthController : ControllerBase
     }
 }
 
-public class LoginRequest
+public class Login4Admin
 {
-    public  required string Username { get; set; }
+    public  string? Username { get; set; }
     public required string Password { get; set; }
     public required string Email { get; set; }
 }
 
-public class RegisterRequest
+public class Register4Admin
 {
     public required string Username { get; set; }
     public required string Password { get; set; }
     public required string Email { get; set; }
+}
+public class Update4Admin {
+    public string? Username { get; set;}
+    public string? Password { get; set;}
+    public required string Email {get; set;}
 }
