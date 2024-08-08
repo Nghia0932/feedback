@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace feedback.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240805100801_updateUsers")]
-    partial class updateUsers
+    [Migration("20240807044004_User")]
+    partial class User
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,12 +32,15 @@ namespace feedback.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
                     b.Property<string>("email")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("passwordhash")
+                    b.Property<string>("password")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("username")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("id");

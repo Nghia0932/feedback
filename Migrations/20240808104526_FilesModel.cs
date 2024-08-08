@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -6,23 +7,25 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace feedback.Migrations
 {
     /// <inheritdoc />
-    public partial class AddProductTable : Migration
+    public partial class FilesModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Files",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tensanpham = table.Column<string>(type: "text", nullable: false),
-                    soluong = table.Column<int>(type: "integer", nullable: false)
+                    TenFile = table.Column<string>(type: "text", nullable: false),
+                    LoaiFile = table.Column<string>(type: "text", nullable: false),
+                    NoiDungFile = table.Column<byte[]>(type: "bytea", nullable: false),
+                    NgayTao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.id);
+                    table.PrimaryKey("PK_Files", x => x.Id);
                 });
         }
 
@@ -30,7 +33,7 @@ namespace feedback.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Files");
         }
     }
 }

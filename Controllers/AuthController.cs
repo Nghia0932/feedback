@@ -34,7 +34,7 @@ public class AuthController : ControllerBase
     {
         var user = await _context.User
             .SingleOrDefaultAsync(u => u.email == request.Email);
-        if (user == null || !VerifyPassword(request.Password,  user.passwordhash))
+        if (user == null || !VerifyPassword(request.Password,  user.password))
         {
           
             return Unauthorized();
@@ -54,7 +54,7 @@ public class AuthController : ControllerBase
         {
             username = request.Username,
             email = request.Email,
-            passwordhash = HashPassword(request.Password)
+            password = HashPassword(request.Password)
         };
         _context.User.Add(user);
         await _context.SaveChangesAsync();
@@ -77,9 +77,8 @@ public class AuthController : ControllerBase
 
         if (!string.IsNullOrEmpty(request.Password))
         {
-            user.passwordhash = HashPassword(request.Password);
+            user.password = HashPassword(request.Password);
         }
-
         // Save changes to the database
         _context.User.Update(user);
         await _context.SaveChangesAsync();
